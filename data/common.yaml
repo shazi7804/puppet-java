@@ -1,0 +1,8 @@
+---
+java::jdk_type: 'openjdk'
+java::jdk_version: '8'
+java::http_proxy: ~
+java::proxy_download_timeout: '60'
+java::oracle_ppa: 'ppa:webupd8team/java'
+java::oraclejdk_rpm: '/tmp/oracle-java.rpm'
+java::oraclejdk_verify_cookie: 'Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie'
