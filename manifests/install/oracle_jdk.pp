@@ -67,7 +67,7 @@ class java::install::oracle_jdk inherits java {
 
     }
     default : {
-      fail ("unsupported platform ${$facts['os']['name']}")
+      fail ("unsupported platform ${$facts['osfamily']}")
     }
   }
 
