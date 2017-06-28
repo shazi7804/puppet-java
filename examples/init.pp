@@ -10,3 +10,14 @@
 # https://docs.puppet.com/guides/tests_smoke.html
 #
 include ::java
+node default {
+
+  notify { 'enduser-before': }
+  notify { 'enduser-after': }
+
+  class { 'ntp':
+    require => Notify['enduser-before'],
+    before  => Notify['enduser-after'],
+  }
+
+}

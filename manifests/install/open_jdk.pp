@@ -34,7 +34,7 @@ class java::install::open_jdk inherits java {
         }
       }
     }
-    default : {
+    default: {
       fail ("unsupported platform ${facts['osfamily']}")
     }
   }
