@@ -15,7 +15,7 @@ class java::install::open_jdk inherits java {
           $java_home    = '/usr/lib/jvm/java-8-openjdk-amd64'
         }
         default : {
-          fail ("unsupported platform openjdk 1.${java::jdk_version} version at ${$facts['osfamily']}")
+          fail ("unsupported platform openjdk 1.${java::jdk_version} version at ${facts['osfamily']}")
         }
       }
     }
@@ -35,7 +35,7 @@ class java::install::open_jdk inherits java {
       }
     }
     default : {
-      fail ("unsupported platform ${$facts['osfamily']}")
+      fail ("unsupported platform ${facts['osfamily']}")
     }
   }
 
