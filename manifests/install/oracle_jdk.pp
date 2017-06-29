@@ -1,5 +1,5 @@
 class java::install::oracle_jdk inherits java {
-  case $facts['osfamily'] {
+  case $facts['os']['family'] {
     'Debian': {
       case $java::jdk_version {
         '7' : {
@@ -40,20 +40,20 @@ class java::install::oracle_jdk inherits java {
           $java_home    = '/usr/java/default'
         }
         default : {
-          fail ("unsupported platform oracle_jdk 1.${java::jdk_version} version at ${$facts['osfamily']}")
+          fail ("unsupported platform oracle_jdk 1.${java::jdk_version} version at ${$facts['os']['family']}")
         }
       }
 
       if $java::http_proxy {
         exec { 'download_oraclejdk':
-          command => "/usr/bin/curl -x ${java::http_proxy} -L -H '${java::oraclejdk_verify_cookie}' --connect-timeout ${java::proxy_download_timeout} -o ${java::oraclejdk_rpm} -O ${java::oraclejdk_download_url}/${package_rpm}",
+          command => "/usr/bin/curl -x ${java::http_proxy} -L -H '${java::oraclejdk_verify_cookie}' --connect-timeout ${java::proxy_download_timeout} -o ${java::oraclejdk_rpm} -O ${oraclejdk_download_url}/${package_rpm}",
           unless  => "/bin/rpm -qa | grep ${package_name}",
           notify  => Exec['install_oraclejdk'],
         }
       }
       else {
         exec { 'download_oraclejdk':
-          command => "/usr/bin/curl -L -H '${java::oraclejdk_verify_cookie}' -o ${java::oraclejdk_rpm} --connect-timeout ${java::proxy_download_timeout} -O ${java::oraclejdk_download_url}/${package_rpm}",
+          command => "/usr/bin/curl -L -H '${java::oraclejdk_verify_cookie}' -o ${java::oraclejdk_rpm} --connect-timeout ${java::proxy_download_timeout} -O ${oraclejdk_download_url}/${package_rpm}",
           unless  => "/bin/rpm -qa | grep ${package_name}",
           notify  => Exec['install_oraclejdk'],
         }

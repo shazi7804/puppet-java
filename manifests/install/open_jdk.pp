@@ -1,5 +1,5 @@
 class java::install::open_jdk inherits java {
-  case $facts['osfamily'] {
+  case $facts['os']['family'] {
     'Debian': {
       include apt
       apt::ppa { 'ppa:openjdk-r/ppa':
@@ -35,7 +35,7 @@ class java::install::open_jdk inherits java {
       }
     }
     default: {
-      fail ("unsupported platform ${facts['osfamily']}")
+      fail ("unsupported platform ${facts['os']['family']}")
     }
   }
 
