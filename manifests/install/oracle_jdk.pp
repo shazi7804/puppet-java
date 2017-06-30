@@ -34,6 +34,7 @@ class java::install::oracle_jdk inherits java {
         'set-licence-seen':
           command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections';
       }
+
       Package { $package_name:
         ensure  => present,
         require => Exec['install-ppa'],
