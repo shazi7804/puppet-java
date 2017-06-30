@@ -1,10 +1,6 @@
 class java::install::open_jdk inherits java {
   case $facts['os']['family'] {
     'Debian': {
-      include apt
-      apt::ppa { 'ppa:openjdk-r/ppa':
-        notify => Exec['apt_update'],
-      }
       case $java::jdk_version {
         '7' : {
           $package_name = 'openjdk-7-jre'
@@ -17,6 +13,19 @@ class java::install::open_jdk inherits java {
         default : {
           fail ("unsupported platform openjdk 1.${java::jdk_version} version at ${facts['osfamily']}")
         }
+      }
+
+      $add_apt_package = [ 'python-software-properties', 'software-properties-common' ]
+      package { $add_apt_package:
+        ensure => present,
+        notify => Exec['install-ppa'],
+      }
+
+      exec { 'install-ppa':
+        path    => '/bin:/usr/sbin:/usr/bin:/sbin',
+        command => "add-apt-repository -y ${java::ppa_openjdk} && apt-get update",
+        user    => 'root',
+        unless  => "/usr/bin/dpkg -l | grep ${package_name}",
       }
     }
     'Redhat': {

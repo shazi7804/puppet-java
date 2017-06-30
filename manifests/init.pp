@@ -47,7 +47,8 @@ class java (
   String $jdk_version,
   String $proxy_download_timeout,
   String $oraclejdk_rpm,
-  String $oracle_ppa,
+  String $ppa_openjdk,
+  String $ppa_oracle,
   String $oraclejdk_verify_cookie,
   Optional[String] $http_proxy,
 ){

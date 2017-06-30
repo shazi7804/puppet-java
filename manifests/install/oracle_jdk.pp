@@ -11,24 +11,32 @@ class java::install::oracle_jdk inherits java {
           $java_home    = '/usr/lib/jvm/java-8-oracle'
         }
         default : {
-          fail ("unsupported platform oracle_jdk 1.${java::jdk_version} version at ${$facts['osfamily']}")
+          fail ("unsupported platform oracle_jdk 1.${java::jdk_version} version at ${facts['os']['family']}")
         }
       }
 
-      include apt
-      apt::ppa { $java::oracle_ppa:
-        notify => Exec['apt_update']
+      $add_apt_package = [ 'python-software-properties', 'software-properties-common' ]
+      package { $add_apt_package:
+        ensure => present,
+        notify => Exec['install-ppa'],
+      }
+
+      exec { 'install-ppa':
+        path    => '/bin:/usr/sbin:/usr/bin:/sbin',
+        command => "add-apt-repository -y ${java::ppa_oracle} && apt-get update",
+        user    => 'root',
+        unless  => "/usr/bin/dpkg -l | grep ${package_name}",
       }
       -> Exec {
         'set-licence-selected':
-          command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections',
-          unless  => "/usr/bin/dpkg -l | grep ${package_name}";
+          command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections';
+
         'set-licence-seen':
-          command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections',
-          unless  => "/usr/bin/dpkg -l | grep ${package_name}";
+          command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections';
       }
-      -> Package { $package_name:
+      Package { $package_name:
         ensure  => present,
+        require => Exec['install-ppa'],
       }
     }
     'Redhat': {
