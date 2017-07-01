@@ -3,11 +3,11 @@ class java::install::oracle_jdk inherits java {
     'Debian': {
       case $java::jdk_version {
         '7' : {
-          $package_name = 'oracle-java7-installer'
+          $package_name = 'oracle-java7-set-default'
           $java_home    = '/usr/lib/jvm/java-7-oracle'
         }
         '8' : {
-          $package_name = 'oracle-java8-installer'
+          $package_name = 'oracle-java8-set-default'
           $java_home    = '/usr/lib/jvm/java-8-oracle'
         }
         default : {
@@ -18,26 +18,35 @@ class java::install::oracle_jdk inherits java {
       $add_apt_package = [ 'python-software-properties', 'software-properties-common' ]
       package { $add_apt_package:
         ensure => present,
-        notify => Exec['install-ppa'],
+        # notify => Exec['install-ppa'],
       }
 
       exec { 'install-ppa':
         path    => '/bin:/usr/sbin:/usr/bin:/sbin',
         command => "add-apt-repository -y ${java::ppa_oracle} && apt-get update",
         user    => 'root',
-        unless  => "/usr/bin/dpkg -l | grep ${package_name}",
-      }
-      -> Exec {
-        'set-licence-selected':
-          command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections';
-
-        'set-licence-seen':
-          command => '/bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections';
+        notify  => Exec['set-licence-select','set-licence-seen'],
+        unless  => "apt-cache policy | grep webupd8team",
       }
 
-      Package { $package_name:
+      exec { 'set-licence-select':
+        path        => '/bin:/usr/sbin:/usr/bin:/sbin',
+        command     => "echo ${package_name} shared/accepted-oracle-license-v1-1 select true | debconf-set-selections",
+        refreshonly => true,
+        unless      => "debconf-show ${package_name} | grep shared/accepted-oracle-license-v1-1",
+      }
+
+      exec { 'set-licence-seen':
+        path        => '/bin:/usr/sbin:/usr/bin:/sbin',
+        command     => "echo ${package_name} shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections",
+        refreshonly => true,
+        unless      => "debconf-show ${package_name} | grep shared/accepted-oracle-license-v1-1",
+      }
+
+      package { 'install_oraclejdk':
         ensure  => present,
-        require => Exec['install-ppa'],
+        name    => $package_name,
+        require => Exec['install-ppa','set-licence-select','set-licence-seen'],
       }
     }
     'Redhat': {
