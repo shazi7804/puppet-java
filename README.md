@@ -6,7 +6,7 @@
 
 1. [Description](#description)
 1. [Setup - The basics of getting started with java](#setup)
-    * [Beginning with java](#beginning-with java)
+    * [Beginning with java](#beginning-with-java)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Development - Guide for contributing to the module](#development)
