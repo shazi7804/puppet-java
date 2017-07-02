@@ -2,16 +2,12 @@ class java::install::oracle_jdk inherits java {
   case $facts['os']['family'] {
     'Debian': {
       case $java::jdk_version {
-        '7' : {
-          $package_name = 'oracle-java7-set-default'
-          $java_home    = '/usr/lib/jvm/java-7-oracle'
-        }
         '8' : {
           $package_name = 'oracle-java8-set-default'
           $java_home    = '/usr/lib/jvm/java-8-oracle'
         }
         default : {
-          fail ("unsupported platform oracle_jdk 1.${java::jdk_version} version at ${facts['os']['family']}")
+          fail ("unsupported oracle_jdk 1.${java::jdk_version} version at ${facts['os']['family']}")
         }
       }
 
@@ -26,7 +22,7 @@ class java::install::oracle_jdk inherits java {
         command => "add-apt-repository -y ${java::ppa_oracle} && apt-get update",
         user    => 'root',
         notify  => Exec['set-licence-select','set-licence-seen'],
-        unless  => "apt-cache policy | grep webupd8team",
+        unless  => 'apt-cache policy | grep webupd8team',
       }
 
       exec { 'set-licence-select':
