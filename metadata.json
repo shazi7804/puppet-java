@@ -1,6 +1,6 @@
 {
   "name": "shazi7804-java",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "shazi7804",
   "summary": "Install, deploysm, and configures AWS agent services.",
   "license": "Apache-2.0",
@@ -9,11 +9,11 @@
   "issues_url": "https://github.com/shazi7804/puppet-java/issues",
   "dependencies": [
   ],
+  "data_provider": "hiera",
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "5",
         "6",
         "7"
       ]
@@ -21,7 +21,6 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "5",
         "6",
         "7"
       ]
@@ -37,8 +36,6 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "10.04",
-        "12.04",
         "14.04",
         "16.04"
       ]
@@ -47,8 +44,9 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.9.0"
+      "version_requirement": "4.7.0 < 5.0.0"
     }
-  ]
+  ],
+  "description": "Java Module for Debian, Ubuntu, CentOS and RHEL."
 }
 
