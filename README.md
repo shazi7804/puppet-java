@@ -9,6 +9,7 @@
     * [Beginning with java](#beginning-with-java)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
 
 ## Description
@@ -60,6 +61,31 @@ class { '::java':
 
 * java::install: Handles the packages.
 * java::config: Handles the config.
+
+## Limitations
+
+This module cannot guarantee installation of Java versions that are not available on  platform repositories.
+
+This module only manages a singular installation of Java, meaning it is not possible to manage e.g. OpenJDK 7 and Oracle Java 8 in parallel on the same system.
+
+Oracle Java packages are not included in Debian 7 and Ubuntu 12.04/14.04 repositories. To install Java on those systems, you'll need to package Oracle JDK/JRE, and then the module can install the package. For more information on how to package Oracle JDK/JRE, see the [Debian wiki](http://wiki.debian.org/JavaPackage).
+
+This module is officially [supported](https://forge.puppetlabs.com/supported) for the following Java versions and platforms:
+
+OpenJDK is supported on:
+
+* Red Hat Enterprise Linux (RHEL) 5, 6, 7
+* CentOS 5, 6, 7
+* Debian 6, 7
+* Ubuntu 10.04, 12.04, 14.04
+
+Sun Java is supported on:
+
+* Debian 6
+
+Oracle Java is supported on:
+
+* CentOS 6
 
 ## Development
 
