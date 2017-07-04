@@ -54,7 +54,7 @@ class java::install::oracle_jdk inherits java {
           $java_home    = '/usr/java/default'
         }
         default : {
-          fail ("unsupported platform oracle_jdk 1.${java::jdk_version} version at ${$facts['os']['family']}")
+          fail ("unsupported oracle_jdk 1.${java::jdk_version} version at ${$facts['os']['family']}")
         }
       }
 
