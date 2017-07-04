@@ -1,3 +1,7 @@
+## 2017-07-04 - Release 0.1.3
+
+- add Apache License.
+
 ## 2017-07-04 - Release 0.1.2
 ### Summary
 
