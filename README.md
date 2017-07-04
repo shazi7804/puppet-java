@@ -14,7 +14,7 @@
 
 ## Description
 
-The aws agent module installs, configures, and manages the java service across a range of operating systems and distributions.
+The java module installs, configures, and manages the java service across a range of operating systems and distributions.
 
 ## Setup
 
@@ -31,6 +31,16 @@ All parameters for the ntp module are contained within the main `::java` class, 
 ```puppet
 include '::java'
 ```
+
+### Configuring JDK version
+support OpenJDK 7/8/9, OracleJDK 8/9 default version 1.8
+
+```puppet
+class { '::java':
+  jdk_version => '8',
+}
+```
+
 
 ### Configuring JDK type (default OpenJDK)
 
@@ -77,7 +87,7 @@ OpenJDK is supported on:
 * Red Hat Enterprise Linux (RHEL) 5, 6, 7
 * CentOS 5, 6, 7
 * Debian 6, 7
-* Ubuntu 10.04, 12.04, 14.04
+* Ubuntu 12.04, 14.04, 16.04
 
 Sun Java is supported on:
 

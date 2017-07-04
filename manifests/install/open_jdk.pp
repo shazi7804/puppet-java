@@ -10,6 +10,10 @@ class java::install::open_jdk inherits java {
           $package_name = 'openjdk-8-jre'
           $java_home    = '/usr/lib/jvm/java-8-openjdk-amd64'
         }
+        '9' : {
+          $package_name = 'openjdk-9-jre'
+          $java_home    = '/usr/lib/jvm/java-9-openjdk-amd64'
+        }
         default : {
           fail ("unsupported openjdk 1.${java::jdk_version} version at ${facts['osfamily']}")
         }
@@ -30,6 +34,10 @@ class java::install::open_jdk inherits java {
     }
     'Redhat': {
       case $java::jdk_version {
+        '6' : {
+          $package_name = 'java-1.6.0-openjdk'
+          $java_home    = '/usr/lib/jvm/jre-1.6.0-openjdk.x86_64'
+        }
         '7' : {
           $package_name = 'java-1.7.0-openjdk'
           $java_home    = '/usr/lib/jvm/jre-1.7.0-openjdk.x86_64'

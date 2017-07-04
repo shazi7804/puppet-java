@@ -6,6 +6,10 @@ class java::install::oracle_jdk inherits java {
           $package_name = 'oracle-java8-set-default'
           $java_home    = '/usr/lib/jvm/java-8-oracle'
         }
+        '9' : {
+          $package_name = 'oracle-java9-set-default'
+          $java_home    = '/usr/lib/jvm/java-9-oracle'
+        }
         default : {
           fail ("unsupported oracle_jdk 1.${java::jdk_version} version at ${facts['os']['family']}")
         }
@@ -91,5 +95,3 @@ class java::install::oracle_jdk inherits java {
     changes => "set JAVA_HOME ${java_home}",
   }
 }
-
-
