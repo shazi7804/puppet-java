@@ -1,5 +1,5 @@
 # java
-[![Build Status](https://travis-ci.org/shazi7804/puppet-java.svg?branch=master)](https://travis-ci.org/shazi7804/puppet-java) [![Puppet Forge](https://img.shields.io/puppetforge/dt/camptocamp/openldap.svg?style=flat-square)](https://forge.puppet.com/shazi7804/java) [![Puppet Forge](https://img.shields.io/puppetforge/v/vStone/percona.svg?style=flat-square)](https://forge.puppet.com/shazi7804/java)
+[![Build Status](https://travis-ci.org/shazi7804/puppet-java.svg?branch=master)](https://travis-ci.org/shazi7804/puppet-java) [![Puppet Forge](https://img.shields.io/puppetforge/v/shazi7804/java.svg?style=flat-square)](https://forge.puppet.com/shazi7804/java) [![Puppet Forge](https://img.shields.io/puppetforge/v/shazi7804/java.svg?style=flat-square)](https://forge.puppet.com/shazi7804/java)
 
 
 #### Table of Contents
